@@ -1,0 +1,62 @@
+---
+
+#######
+# Install Jenkins from the Jenkins debian repo
+- name: Add Jenkins repo to APT
+  lineinfile:
+    dest: /etc/apt/sources.list.d/jenkins.list
+    create: yes
+    line: deb http://pkg.jenkins.io/debian-stable binary/
+
+- name: Add Jenkins repo key to APT
+  apt_key:
+    url: https://pkg.jenkins.io/debian/jenkins.io.key
+    state: present
+
+- name: Install Jenkins2
+  apt:
+    name: jenkins
+    state: latest
+    update_cache: yes
+
+#####
+# give the jenkins user a pwd and login shell
+- name: Set jenkins shell
+  user: name=jenkins shell=/bin/bash
+  
+- name: Set jenkins pwd
+  shell: echo "jenkins:jenkins" | chpasswd
+
+- name: No Jenkins Wizard Thank You
+  lineinfile:
+    dest: /etc/default/jenkins
+    regexp: ^JENKINS_JAVA_OPTIONS
+    line: JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
+
+#####
+# To avoid having to enter the gui and set up jenkins, copy all the
+# configuration into the running instance. Includes the jenkins user's ssh key
+# for authorization when running the CLI
+- name: Copy Jenkins config
+  copy:
+    src: /vagrant/files/jenkins_home/
+    dest: /var/lib/jenkins
+    owner: jenkins
+    group: jenkins
+    mode: 0755
+
+#######
+# Start it up an keep it running
+- name: Start and enable Jenkins
+  service:
+    name: jenkins
+    state: restarted
+    enabled: yes
+
+#######
+# Pause the playbook until jenkins is running by polling the Jenkins port
+# (8080).
+- name: Wait for Jenkins to start
+  wait_for:
+    port: 8080
+    state: started

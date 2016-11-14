@@ -1,0 +1,17 @@
+#####
+# Playbook for provisioning a Jenkins2 development box.
+#
+---
+-
+  hosts: all
+
+  vars:
+
+    jenkins_cli_cmd: >-
+      /usr/bin/java -jar /home/vagrant/jenkins-cli.jar
+      -s http://localhost:8080
+      -i /var/lib/jenkins/.ssh/id_rsa
+
+  roles:
+    - common
+    - jenkins
