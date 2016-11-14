@@ -23,7 +23,7 @@
 # give the jenkins user a pwd and login shell
 - name: Set jenkins shell
   user: name=jenkins shell=/bin/bash
-  
+
 - name: Set jenkins pwd
   shell: echo "jenkins:jenkins" | chpasswd
 
@@ -45,6 +45,8 @@
     group: jenkins
     mode: 0755
 
+#######
+# ssh is, of course, very picky about file permissions
 - name: Public key perms
   file:
     path: /var/lib/jenkins/.ssh/id_rsa.pub
@@ -68,16 +70,16 @@
     enabled: yes
 
 #######
-# Pause the playbook until jenkins is running by polling the Jenkins port
-# (8080).
+# Pause the playbook until jenkins is running by polling the Jenkins
+# webservice.
 - name: Wait for Jenkins to start
-  command: curl --head --silent {{ jenkins_base_url }}
+  command: curl --head --silent {{ jenkins_login_url }}
   register: result
   until: result.stdout.find("200 OK") != -1
-  retries: 12
+  retries: 10
   delay: 5
   changed_when: false
-    
+
 #####
 # Install plugins using the Jenkins CLI
 - name: Download Jenkins CLI
@@ -89,13 +91,11 @@
 
 - name: Install Plugins
   shell: "{{ jenkins_cli_cmd }} install-plugin {{ item }} -deploy"
-  with_items:
-    - build-timeout
+  with_items: "{{ jenkins_plugins }}"
 
+#######
+# The plugins require a restart.
 - name: Final Restart
   service:
     name: jenkins
     state: restarted
-
-
-    

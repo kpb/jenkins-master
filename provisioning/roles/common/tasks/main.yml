@@ -1,18 +1,18 @@
 ---
 
 #######
-# Ansible requires Aptitude to use the apt module
+# Ansible requires Aptitude to use the apt module.
 - name: Install aptitude
   shell: apt-get -y install aptitude
 
 #######
-# Upgrade to the latest and greatest
-#- name: Upgrade box
-#  apt:
-#    upgrade: safe
+# Upgrade to the latest and greatest. This can take a long time.
+- name: Upgrade box
+  apt:
+    upgrade: safe
 
 #######
-#
+# For great justice.
 - name: Install Java
   apt:
     name: openjdk-8-jdk-headless

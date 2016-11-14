@@ -6,4 +6,20 @@ jenkins_cli_cmd: >-
   -s http://localhost:8080
   -i /var/lib/jenkins/.ssh/id_rsa
 
-jenkins_base_url: http://localhost:8080/login
+#######
+# Use this URL when waiting for the service to retun a '200 OK'.
+jenkins_login_url: http://localhost:8080/login
+
+
+#######
+# All the Jenkins Plugins to install using the CLI
+jenkins_plugins:
+  - build-timeout
+  - build-pipeline-plugin
+  - timestamper
+  - ws-cleanup
+  - gradle
+  - git
+  - blueocean
+  - ssh-slaves
+  - junit

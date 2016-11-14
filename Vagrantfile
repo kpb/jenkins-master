@@ -20,5 +20,5 @@ Vagrant.configure("2") do |config|
     ansible.verbose = true
     ansible.playbook = "provisioning/jenkins-master.yml"
   end
-  
+
 end
