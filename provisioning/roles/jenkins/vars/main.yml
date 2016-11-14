@@ -1,0 +1,7 @@
+#######
+# The jenkins CLI command. Note the '>-' to strip the \n from the end of
+# the command.
+jenkins_cli_cmd: >-
+  /usr/bin/java -jar /home/vagrant/jenkins-cli.jar
+  -s http://localhost:8080
+  -i /var/lib/jenkins/.ssh/id_rsa
