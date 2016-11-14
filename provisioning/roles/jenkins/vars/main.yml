@@ -5,3 +5,5 @@ jenkins_cli_cmd: >-
   /usr/bin/java -jar /home/vagrant/jenkins-cli.jar
   -s http://localhost:8080
   -i /var/lib/jenkins/.ssh/id_rsa
+
+jenkins_base_url: http://localhost:8080/login

@@ -1,11 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <user>
   <fullName>jenkins admin</fullName>
+  <description></description>
   <properties>
     <jenkins.security.ApiTokenProperty>
       <apiToken>njM6ScxFFoR05g23mJ5el+xf2Dmn9WniJdVhnkLI8R+nzKlnLRjsZkQqLrT929gE</apiToken>
     </jenkins.security.ApiTokenProperty>
+    <jenkins.security.LastGrantedAuthoritiesProperty>
+      <roles>
+        <string>authenticated</string>
+      </roles>
+      <timestamp>1479101340028</timestamp>
+    </jenkins.security.LastGrantedAuthoritiesProperty>
     <hudson.model.MyViewsProperty>
+      <primaryViewName></primaryViewName>
       <views>
         <hudson.model.AllView>
           <owner class="hudson.model.MyViewsProperty" reference="../../.."/>
@@ -19,11 +27,14 @@
     <hudson.model.PaneStatusProperties>
       <collapsed/>
     </hudson.model.PaneStatusProperties>
-    <hudson.search.UserSearchProperty>
-      <insensitiveSearch>false</insensitiveSearch>
-    </hudson.search.UserSearchProperty>
     <hudson.security.HudsonPrivateSecurityRealm_-Details>
       <passwordHash>#jbcrypt:$2a$10$CfWvnCnXqgXs1HzSqleHl.paUhQXdZYWg7v3iIKU78mxH9bGLk24K</passwordHash>
     </hudson.security.HudsonPrivateSecurityRealm_-Details>
+    <org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
+      <authorizedKeys>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpMSXej83oF3E7ZJbr9jgbfcyqbbAlJBLX2ysY6HBjJy+tuo2OZKYthNNColGD+jK8JbnyngRx+E4Ntu3fVxXkRf96bSTahJl1nSgPJyK1+fMemmsHVyi12UJB5PJBuPDo/bwz1e3dnfL/D29XyMqXm/J6zFKZFJ0JZ+gEMJprZAb9fSxKT/nnB1XUg5Aa7kQmR3+WKHHpXvIxnEVYKjDR4BUvBO71k2JRoKIdJqYsdOs38sMAS46m+nHhhgtUe9Z+UwnwuicMTxAZBt5FU/gLOWLSGbzfzlWUR6zodA2fB+8WdeNCRml9KoJomHFns3DTK8m0CRJYYVs5cEYR6ObV jenkins@vagrant</authorizedKeys>
+    </org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
+    <hudson.search.UserSearchProperty>
+      <insensitiveSearch>false</insensitiveSearch>
+    </hudson.search.UserSearchProperty>
   </properties>
 </user>

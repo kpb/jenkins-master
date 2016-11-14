@@ -45,8 +45,22 @@
     group: jenkins
     mode: 0755
 
+- name: Public key perms
+  file:
+    path: /var/lib/jenkins/.ssh/id_rsa.pub
+    owner: jenkins
+    group: jenkins
+    mode: 644
+
+- name: Private key perms
+  file:
+    path: /var/lib/jenkins/.ssh/id_rsa.pub
+    owner: jenkins
+    group: jenkins
+    mode: 600
+
 #######
-# Start it up an keep it running
+# Restart the service and keep it running
 - name: Start and enable Jenkins
   service:
     name: jenkins
@@ -57,6 +71,31 @@
 # Pause the playbook until jenkins is running by polling the Jenkins port
 # (8080).
 - name: Wait for Jenkins to start
-  wait_for:
-    port: 8080
-    state: started
+  command: curl --head --silent {{ jenkins_base_url }}
+  register: result
+  until: result.stdout.find("200 OK") != -1
+  retries: 12
+  delay: 5
+  changed_when: false
+    
+#####
+# Install plugins using the Jenkins CLI
+- name: Download Jenkins CLI
+  get_url:
+    url: http://localhost:8080/jnlpJars/jenkins-cli.jar
+    dest: /home/vagrant/jenkins-cli.jar
+    mode: 0755
+    timeout: 30
+
+- name: Install Plugins
+  shell: "{{ jenkins_cli_cmd }} install-plugin {{ item }} -deploy"
+  with_items:
+    - build-timeout
+
+- name: Final Restart
+  service:
+    name: jenkins
+    state: restarted
+
+
+    
